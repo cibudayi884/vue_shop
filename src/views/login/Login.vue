@@ -13,7 +13,7 @@
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="el-icon-lock"></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -26,10 +26,12 @@
 </template>
 
 <script>
+  import {getDept} from "../../network";
+
   export default {
     name: "Login",
     components:{
-      // getLogin
+      getDept
     },
     data(){
       return{
@@ -50,7 +52,9 @@
             { required: true, message: '请输入登录密码', trigger: 'blur' },
             { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
           ]
-        }
+        },
+        logindata: {},
+        newloginForm:{}
       }
     },
     methods:{
@@ -59,25 +63,27 @@
         this.$refs.loginFormRef.resetFields()
       },
       login(){
-        this.$refs.loginFormRef.validate( async valid =>{
+        this.$refs.loginFormRef.validate(valid =>{
           if (!valid) return;
-          //解构赋值并重命名为res
-          const {data:res} =await this.$http.post('login',this.loginForm)
-          if (res.meta.status !==200) return this.$message.error('登录失败');
-          this.$message({
-            message: '登录成功',
-            type: 'success'
-          });
-          // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
-          //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
-          //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
-          window.sessionStorage.setItem('token',res.data.token)  //将res.data.token存储到token字段
-          // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
-          this.$router.push('home');
+          getDept(this.loginForm).then(res=>{
+            this.logindata = res.data;
+            console.log(this.logindata)
+            //解构赋值并重命名为res
+            if (this.logindata.meta.status !== 200) return this.$message.error('登录失败');
+            this.$message({
+              message: '登录成功',
+              type: 'success'
+            });
+            // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
+            //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
+            //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
+            window.sessionStorage.setItem('token',this.logindata.data.token)  //将res.data.token存储到token字段
+            // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
+            this.$router.push('home');
+          })
         })
       }
     }
-
   }
 </script>
 

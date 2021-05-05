@@ -1,21 +1,24 @@
 <template>
   <div class="home">
-    <el-button type="info" @click="logout">退出</el-button>
+    <!-- 头部区域 -->
+    <nav-bar></nav-bar>
+    <!-- 页面主体区域 -->
+    <container></container>
   </div>
 </template>
 
 <script>
+  import NavBar from "components/content/NavBar";
+  import Container from "components/content/Container";
   export default {
     name: "Home",
-    methods:{
-      logout(){
-        window.sessionStorage.clear()
-        this.$router.push('/login')
-      }
+    components:{
+      NavBar,
+      Container
     }
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

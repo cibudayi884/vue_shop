@@ -3,7 +3,16 @@ import Router from 'vue-router'
 
 const Login = () =>import('./views/login/Login')
 const Home = () =>import('./views/home/Home')
+const Welcome =() =>import('./views/home/childrenhome/Welcome')
+const User =() =>import('./components/content/users/User')
+const Roles =() =>import('./components/content/users/Roles')
 Vue.use(Router)
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 
 const router = new Router({
   routes: [
@@ -17,7 +26,13 @@ const router = new Router({
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      redirect: '/welcome',
+      children: [
+        { path: '/welcome', component: Welcome },
+        { path: '/users', component: User },
+        { path: '/roles', component: Roles }
+      ]
     }
   ],
   mode: 'history',
