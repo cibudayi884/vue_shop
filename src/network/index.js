@@ -27,3 +27,10 @@ export function getMenuList() {
 export function changeUser() {
   return axios
 }*/
+export function getRole() {
+  return axios.get('/roles')
+}
+//分配用户角色
+export function getRoleInfo(id,roleId) {
+  return axios.put('users/'+id+'/role',{rid:roleId})
+}

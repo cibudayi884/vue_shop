@@ -44,7 +44,7 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(user.row.id)"></el-button>
             <!-- 分配角色按钮 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(user.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -112,16 +112,39 @@
     </span>
     </el-dialog>
 
+    <!--分配角色的对话框-->
+    <el-dialog
+      title="分配角色"
+      :visible.sync="setRoleDialogVisible"
+      width="50%" @close="setRoleDialogClosed">
+      <p>当前的用户：{{userInfo.username}}</p>
+      <p>当前的角色：{{userInfo.role_name}}</p>
+      <p>分配新角色：
+        <el-select v-model="selectedRoleId" placeholder="请选择">
+          <el-option
+            v-for="item in rolesList"
+            :key="item.id"
+            :label="item.roleName"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
+      </span>
+    </el-dialog>
 
   </div>
 </template>
 
 <script>
-  // import {getUserList} from "network";
+  import {getRole,getRoleInfo} from "network/index";
   export default {
     name: "User",
     components:{
-      // getUserList
+      getRole,
+      getRoleInfo
     },
     data(){
       // 验证邮箱的规则
@@ -212,7 +235,12 @@
         editDialog:false,
         // 控制修改用户对话框的显示与隐藏
         editDialogVisible: false,
-
+        setRoleDialogVisible:false,
+        // 需要被分配角色的用户信息
+        userInfo: {},
+          // 已选中的角色Id值
+          selectedRoleId: '',
+          rolesList:[]
       }
     },
     created() {
@@ -345,16 +373,39 @@
 
         this.$message.success('删除用户成功！')
         this.getUserList()
+      },
+      async setRole(userInfo){
+       this.userInfo = userInfo
+        const {data:res} = await getRole()
+        if (res.meta.status !== 200) {
+          return this.$message.error('获取角色列表失败！')
+        }
+
+        this.rolesList = res.data
+       this.setRoleDialogVisible=true
+      },
+      // 点击按钮，分配角色
+      async saveRoleInfo(){
+       if (!this.selectedRoleId){
+         return this.$message.error('请选择要分配的角色！')
+       }
+        const {data:res} = await getRoleInfo(this.userInfo.id,this.selectedRoleId)
+        console.log(res)
+        if (res.meta.status !== 200) {
+          return this.$message.error('获取角色列表失败！')
+        }
+        this.$message.success('更新角色成功！')
+        this.getUserList()
+        this.setRoleDialogVisible = false
+      },
+      setRoleDialogClosed(){
+       this.selectedRoleId=''
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  .el-breadcrumb{
-    margin-bottom: 15px;
-    font-size: 12px;
-  }
   .el-card {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
   }

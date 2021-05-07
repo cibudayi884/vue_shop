@@ -5,7 +5,8 @@ const Login = () =>import('./views/login/Login')
 const Home = () =>import('./views/home/Home')
 const Welcome =() =>import('./views/home/childrenhome/Welcome')
 const User =() =>import('./components/content/users/User')
-const Roles =() =>import('./components/content/users/Roles')
+const Rights =() =>import('./components/content/power/Rights')
+const Roles =() =>import('./components/content/power/Roles')
 Vue.use(Router)
 
 const originalPush = Router.prototype.push
@@ -31,6 +32,7 @@ const router = new Router({
       children: [
         { path: '/welcome', component: Welcome },
         { path: '/users', component: User },
+        { path: '/rights', component: Rights },
         { path: '/roles', component: Roles }
       ]
     }
