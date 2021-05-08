@@ -107,9 +107,9 @@
       <!--树形控件-->
       <el-tree :data="rightslist" :props="treeProps" show-checkbox node-key="id" default-expand-all :default-checked-keys="defKeys" ref="treeRef"></el-tree>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="setRightDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="allotRights">确 定</el-button>
-  </span>
+        <el-button @click="setRightDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="allotRights">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
