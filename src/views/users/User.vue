@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <nav-bar>
+      <template v-slot:first>首页</template>
+      <template v-slot:second>用户管理</template>
+      <template v-slot:third>用户列表</template>
+    </nav-bar>
 
     <!-- 卡片视图区域 -->
     <el-card class="box-card">
@@ -139,10 +139,12 @@
 </template>
 
 <script>
+  import NavBar from "../../components/common/NavBar/NavBar";
   import {getRole,getRoleInfo} from "network/index";
   export default {
     name: "User",
     components:{
+      NavBar,
       getRole,
       getRoleInfo
     },

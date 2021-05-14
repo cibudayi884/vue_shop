@@ -4,10 +4,11 @@ import Router from 'vue-router'
 const Login = () =>import('./views/login/Login')
 const Home = () =>import('./views/home/Home')
 const Welcome =() =>import('./views/home/childrenhome/Welcome')
-const User =() =>import('./components/content/users/User')
-const Rights =() =>import('./components/content/power/Rights')
-const Roles =() =>import('./components/content/power/Roles')
-const Cate =() =>import('./components/content/Goods/Cate')
+const User =() =>import('./views/users/User')
+const Rights =() =>import('./views/power/Rights')
+const Roles =() =>import('./views/power/Roles')
+const Cate =() =>import('./views/Goods/Cate')
+const Params =() =>import('./views/Goods/Params')
 Vue.use(Router)
 
 const originalPush = Router.prototype.push
@@ -35,7 +36,8 @@ const router = new Router({
         { path: '/users', component: User },
         { path: '/rights', component: Rights },
         { path: '/roles', component: Roles },
-        { path: '/categories', component: Cate }
+        { path: '/categories', component: Cate },
+        { path: '/params', component: Params }
       ]
     }
   ],

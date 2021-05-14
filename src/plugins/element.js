@@ -26,7 +26,7 @@ import {
   Dialog,
   MessageBox,
   Tag, Tree, Select,
-  Option, Cascader
+  Option, Cascader, Alert, TabPane, Tabs
 } from "element-ui";
 
 Vue.use(Button)
@@ -57,6 +57,9 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 //Message需要全局挂载
 Vue.prototype.$message = Message

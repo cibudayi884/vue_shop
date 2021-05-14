@@ -46,7 +46,7 @@
 
 <script>
   import {getMenuList} from "../../network";
-  import User from "./users/User";
+  import User from "../../views/users/User";
   export default {
     name: "Container",
     data() {

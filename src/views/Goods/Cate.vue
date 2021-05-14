@@ -1,11 +1,12 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品分类</el-breadcrumb-item>
-    </el-breadcrumb>
+    <nav-bar>
+      <template v-slot:first>首页</template>
+      <template v-slot:second>商品管理</template>
+      <template v-slot:third>商品分类</template>
+    </nav-bar>
+
 
     <!-- 卡片视图 -->
     <el-card>
@@ -71,9 +72,8 @@
             v-model="selectedKeys"
             :options="parentCateList"
             :props="cascaderProps"
-            @change="parentCatChanged"
             style="width: 100%"
-            clearable>
+            clearable @change="parentCatChanged">
           </el-cascader>
         </el-form-item>
       </el-form>
@@ -88,13 +88,15 @@
 </template>
 
 <script>
+  import NavBar from "../../components/common/NavBar/NavBar";
   import {getCateList,getParentCateList,addCate} from 'network/goods'
   export default {
     name: "Cate",
     components:{
+      NavBar,
       getCateList,
       getParentCateList,
-      addCate
+      addCate,
     },
     data(){
       return{
@@ -182,7 +184,7 @@
         this.catelist = res.data.result
         // 为总数据条数赋值
         this.total = res.data.total
-        console.log(this.catelist)
+        // console.log(this.catelist)
       },
       //监听pagesize的改变
       handleSizeChange(newSize){
@@ -205,7 +207,7 @@
         if (res.meta.status !== 200) {
           return this.$message.error('获取父级分类数据失败！')
         }
-        console.log(res.data)
+        // console.log(res.data)
         //保存到data中以供选择父级分类使用
         this.parentCateList = res.data
       },
@@ -222,8 +224,8 @@
         }else {
           this.addCateForm.cat_pid = 0
           this.addCateForm.cat_level = 0
-
         }
+        console.log(this.addCateForm)
       },
       addCate(){
         this.$refs.addUserFormRef.validate(async valid=>{

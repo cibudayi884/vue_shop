@@ -25,3 +25,38 @@ export function getParentCateList() {
 export function addCate(addCateForm) {
   return axios.post('categories',addCateForm)
 }
+//获取所有的商品分类列表数据
+export function getAllCateList() {
+  return axios.get('categories')
+}
+//获取参数列表数据
+export function getParamsData(cateID,activeName) {
+  return axios.get('categories/'+cateID+'/attributes',{
+    params:{
+      sel:activeName
+    }
+  })
+}
+export function addParams(cateID,params) {
+  return axios.post('categories/'+cateID+'/attributes',params)
+}
+
+//获取当前参数的信息
+export function getEditDialog(cateID,attrId,params){
+  return axios.get('categories/'+cateID+'/attributes/'+attrId,params)
+}
+//提交修改参数信息
+export function getEditParams(cateID,attrId,params){
+  return axios.put('categories/'+cateID+'/attributes/'+attrId,params)
+}
+
+//根据Id删除对应的参数项
+export function removeParams(cateID,attrId) {
+  return axios.delete('categories/'+cateID+'/attributes/'+attrId)
+
+}
+
+//需要发起请求，保存这次操作
+export function SaveAttrVals(cateID,attrId,params) {
+  return axios.put('categories/'+cateID+'/attributes/'+attrId,params)
+}

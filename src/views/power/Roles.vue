@@ -1,11 +1,16 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>角色列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <nav-bar>
+      <template v-slot:first>首页</template>
+      <template v-slot:second>权限管理</template>
+      <template v-slot:third>角色列表</template>
+    </nav-bar>
+<!--    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }"></el-breadcrumb-item>
+      <el-breadcrumb-item></el-breadcrumb-item>
+      <el-breadcrumb-item></el-breadcrumb-item>
+    </el-breadcrumb>-->
 
     <!-- 卡片视图 -->
     <el-card>
@@ -115,11 +120,13 @@
 </template>
 
 <script>
+  import NavBar from "../../components/common/NavBar/NavBar";
   import {getRolesList,addUser,removeRightById,getRightsTree,allRights} from "network/power";
 
   export default {
     name: "Rules",
     components:{
+      NavBar,
       getRolesList,
       addUser,
       removeRightById,

@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>权限列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <nav-bar>
+      <template v-slot:first>首页</template>
+      <template v-slot:second>权限管理</template>
+      <template v-slot:third>权限列表</template>
+    </nav-bar>
 
     <!-- 卡片视图 -->
     <el-card>
@@ -40,11 +40,13 @@
 </template>
 
 <script>
+  import NavBar from "../../components/common/NavBar/NavBar";
   import {getRightsList} from "network/power";
 
   export default {
     name: "Rights",
     components:{
+      NavBar,
       getRightsList
     },
     data() {
