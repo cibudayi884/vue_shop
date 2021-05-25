@@ -66,7 +66,6 @@
   import NavBar from "components/common/NavBar/NavBar";
   import OrderList from "./children/OrderList";
   import Pagination from "./children/Pagination";
-  import Dialog from "./children/Dialog";
   import cityData from './citydata.js'
   import progress from "./children/progress";
   import {getOrderList,getProgress} from 'network/order';
@@ -78,7 +77,6 @@
       getOrderList,
       OrderList,
       Pagination,
-      Dialog,
       getProgress
     },
     data(){

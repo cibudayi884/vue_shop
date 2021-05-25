@@ -17,3 +17,7 @@ export function getOrderList(Info) {
 export function getProgress() {
   return axios.get('/kuaidi/1106975712662')
 }
+//获取折线图数据
+export function getMyChart() {
+  return axios.get('reports/type/1')
+}
