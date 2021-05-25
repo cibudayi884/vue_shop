@@ -18,6 +18,8 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 //将富文本编辑器注册为全局可用的组件
 Vue.use(VueQuillEditor)
 
+//添加事件总线对象
+Vue.prototype.$bus = new Vue()
 
 Vue.config.productionTip = false
 

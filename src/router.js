@@ -11,6 +11,8 @@ const Cate =() =>import('./views/Goods/Cate')
 const Params =() =>import('./views/Goods/Params')
 const List =() =>import('./views/Goods/List')
 const Add =() =>import('./views/Goods/Add')
+const Order =() =>import('./views/order/Order')
+const Data =() =>import('./views/data/Data')
 Vue.use(Router)
 
 const originalPush = Router.prototype.push
@@ -41,20 +43,28 @@ const router = new Router({
         { path: '/categories', component: Cate },
         { path: '/params', component: Params },
         { path: '/goods', component: List },
-        { path: '/goods/add', component: Add }
+        { path: '/add', component: Add },
+        { path: '/orders', component: Order },
+        { path: '/reports', component: Data },
+
+
+
       ]
     }
-  ],
-  mode: 'history',
-  base: process.env.BASE_URL
+  ]
 })
+// 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
-  //next()放行   next('/login')强制跳转
-  if (to.path === '/login') return next();
-  //获取token
-  const tokenStr = window.sessionStorage.getItem('token');
-  if (!tokenStr) return next('/login');
-  next();
+  // to 将要访问的路径
+  // from 代表从哪个路径跳转而来
+  // next 是一个函数，表示放行
+  //     next()  放行    next('/login')  强制跳转
+
+  if (to.path === '/login') return next()
+  // 获取token
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (!tokenStr) return next('/login')
+  next()
 })
 
 export default router

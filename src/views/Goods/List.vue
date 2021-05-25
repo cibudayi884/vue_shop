@@ -127,7 +127,7 @@
         this.GoodsList()
       },
       goAddpage(){
-        this.$router.push('/goods/add')
+        this.$router.push('/add')
       }
     },
     filters:{
