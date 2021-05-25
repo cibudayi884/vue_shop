@@ -9,6 +9,8 @@ const Rights =() =>import('./views/power/Rights')
 const Roles =() =>import('./views/power/Roles')
 const Cate =() =>import('./views/Goods/Cate')
 const Params =() =>import('./views/Goods/Params')
+const List =() =>import('./views/Goods/List')
+const Add =() =>import('./views/Goods/Add')
 Vue.use(Router)
 
 const originalPush = Router.prototype.push
@@ -37,7 +39,9 @@ const router = new Router({
         { path: '/rights', component: Rights },
         { path: '/roles', component: Roles },
         { path: '/categories', component: Cate },
-        { path: '/params', component: Params }
+        { path: '/params', component: Params },
+        { path: '/goods', component: List },
+        { path: '/goods/add', component: Add }
       ]
     }
   ],

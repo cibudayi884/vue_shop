@@ -60,3 +60,18 @@ export function removeParams(cateID,attrId) {
 export function SaveAttrVals(cateID,attrId,params) {
   return axios.put('categories/'+cateID+'/attributes/'+attrId,params)
 }
+
+// 根据分页获取对应的商品列表
+export function getGoodsList(params) {
+  return axios.get('goods',params)
+}
+
+//根据id删除商品数据
+export function removeById(id){
+  return axios.delete('goods/'+id)
+}
+
+// 发起请求添加商品
+export function addGoods(config) {
+  return axios.post('goods/',config)
+}
